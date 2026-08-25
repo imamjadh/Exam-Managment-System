@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exam Management System</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="adminfunctions.js" defer></script>
+</head>
+<body>
+<!--SIDEBAR-->  
+  <div class="bar">
+    <h2>Exam Management System</h2>
+    <ul>
+      <li><a href="#" onclick="showSection('announcements')">📢 Announcements</a></li>
+      <li><a href="#" onclick="showSection('students')">👨‍🎓 Student Details</a></li>
+      <li><a href="#" onclick="showSection('exam-requests')">📝 Exam Requests</a></li>
+      <li><a href="#" onclick="showSection('medical-requests')">🏥 Medical Requests</a></li>
+      <li><a href="#" onclick="showSection('results')">📊 Results</a></li>
+      <li><a href="#" onclick="showSection('settings')">⚙️ Account</a></li>
+      <li><a href="#" onclick="logout()">🚪 Logout</a></li>
+    </ul>
+  </div>
+
+<!--DASHBOARD-->  
+  <div class="content">
+    <div id="dashboard" class="section active">
+      <div class="navbar">
+        <input type="search" class="search" placeholder="Search">
+        <div class="user" onclick="showSection('settings')">
+          <img src="PHOTOS/person-circle.svg" alt="Admin" width="40">
+          <div><h4 style="color: whiTE;">Admin</h4></div>
+        </div>
+      </div>
+      <div class="welcomecard">
+        <div>
+          <h2>September 11, 2025</h2>
+          <h1>Welcome back, Admin!</h1>
+          <p>Stay updated with your Dashboard.</p>
+        </div>
+        <img style="height: 150px; width: 250px;" src="PHOTOS/image.jpg" alt="Welcome">
+      </div>
+
+      <div class="cards">
+        <div class="card">Total Departments: 4</div>
+        <div class="card">Total Students: 450</div>
+        <div class="card">Pending Medical Requests: 0</div>
+      </div>
+      
+
+    <div class="event-card">
+          <div class="event-header">
+            <h3>Upcoming Event</h3>
+            <span class="event-date">Date: Pending</span>
+          </div>
+          <div class="event-content">
+            <p>No event details available yet.</p>
+          </div>
+    </div>
+      
+      <div class="cards">
+        <div class="card">
+              <h3>📥 Recent Exam Applications</h3>
+                <p style="font-style: italic; font-weight: 100;">HNDM - 1st Year - 32 Students</p>
+                <p style="font-style: italic; font-weight: 100;">HNDIT - 2nd Year - 42 Students</p>
+        </div>
+
+        <div class="card">
+          <h3>🔔 Notifications</h3>
+          <p  style="font-style: italic; font-weight: 100;">No new notifications</p>
+        </div>
+      </div>
+
+      <div class="event-card">
+          <div style="color: white;" class="calendar">
+            <h2>📅 Calendar</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Su</th><th>Mo</th><th>Tu</th><th>We</th><th>Th</th><th>Fr</th><th>Sa</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td></td><td></td><td></td><td></td><td></td><td></td><td>1</td></tr>
+                <tr><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td></tr>
+                <tr><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td></tr>
+                <tr><td>16</td><td>17</td><td>18</td><td>19</td><td>20</td><td>21</td><td>22</td></tr>
+                <tr><td>23</td><td>24</td><td>25</td><td>26</td><td>27</td><td>28</td><td>29</td></tr>
+                <tr><td>30</td><td>31</td><td></td><td></td><td></td><td></td><td></td></tr>
+              </tbody>
+            </table>
+          </div>
+      </div>
+  </div>
+
+<!--ANNOUNCMENT SECTION-->    
+    <div id="announcements" class="section">
+      <h2>📢 Announcements</h2>
+      <div id="announcement-form">
+        <input type="text" id="announcement-title" placeholder="Announcement Title">
+        <textarea id="announcement-content" placeholder="Announcement Content"></textarea>
+        <button onclick="postAnnouncement()">Post</button>
+      </div>
+      <div id="announcement-list"></div>
+    </div>
+
+<!--STUDENT DETAILS SECTION-->    
+    <div id="students" class="section">
+      <h2>👨‍🎓 Student Details</h2>
+      <button onclick="addStudent()">Add Student</button>
+      <div class="filters">
+        <select id="statusFilter" onchange="loadStudents()">
+          <option value="">Filter by Status</option>
+          <option value="Registered">Registered</option>
+          <option value="Renewed">Renewed</option>
+          <option value="Applied">Applied</option>
+        </select>
+      </div>
+      <div id="add-student-form" class="form" style="display: none;">
+        <div class="inputs">
+          <label for="registrationId">Registration ID</label>
+          <input type="text" id="registrationId">
+        </div>
+        <div class="inputs">
+          <label for="studentName">Student Name</label>
+          <input type="text" id="studentName">
+        </div>
+        <div class="inputs">
+          <label for="studentDepartment">Department</label>
+          <input type="text" id="studentDepartment">
+        </div>
+        <div class="inputs">
+          <label for="studentBatch">Batch</label>
+          <input type="text" id="studentBatch">
+        </div>
+        <div class="inputs">
+          <label for="studentYear">Year</label>
+          <select id="studentYear">
+            <option value="">Select Year</option>
+            <option value="1st Year">1st Year</option>
+            <option value="2nd Year">2nd Year</option>
+          </select>
+        </div>
+        <div class="inputs">
+          <label for="studentSemester">Semester</label>
+          <select id="studentSemester">
+            <option value="">Select Semester</option>
+            <option value="Semester 1">Semester 1</option>
+            <option value="Semester 2">Semester 2</option>
+            <option value="Semester 3">Semester 3</option>
+            <option value="Semester 4">Semester 4</option>
+          </select>
+        </div>
+        <div class="inputs">
+          <label for="studentStatus">Status</label>
+          <select id="studentStatus">
+            <option value="">Select Status</option>
+            <option value="Registered">Registered</option>
+            <option value="Renewed">Renewed</option>
+            <option value="Applied">Applied</option>
+          </select>
+        </div>
+        <button onclick="saveStudent()">Save</button>
+        <button onclick="cancelAddStudent()">Cancel</button>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Registration ID</th>
+            <th>Student Name</th>
+            <th>Department</th>
+            <th>Batch</th>
+            <th>Year</th>
+            <th>Semester</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+          <tr style="font-size: small;">
+            <td>NAW-IT-2324-F-0001</td>
+            <td>G.T.D.Thorawalage</td>
+            <td>HNDIT</td>
+            <td>2324</td>
+            <td>Year 1</td>
+            <td>SEMSTER 2</td>
+            <td>Renewed</td>
+            <td>
+             <button>Delete</button>
+            </td>
+          </tr>
+          <tr style="font-size: small;">
+            <td>NAW-IT-2324-F-0002</td>
+            <td>K.H.K.S.A.Kariyawasam</td>
+            <td>HNDIT</td>
+            <td>2324</td>
+            <td>Year 1</td>
+            <td>SEMSTER 2</td>
+            <td>Registered</td>
+            <td>
+              <button>Delete</button>
+            </td>
+          </tr>
+          <tr style="font-size: small;">
+            <td>NAW-IT-2324-F-0003</td>
+            <td>H.M.D.C.Bandara</td>
+            <td>HNDIT</td>
+            <td>2324</td>
+            <td>Year 1</td>
+            <td>SEMSTER 2</td>
+            <td>Registered</td>
+            <td>
+              <button>Delete</button>
+            </td>
+          </tr>
+          <tr style="font-size: small;">
+            <td>NAW-IT-2324-F-0004</td>
+            <td>M.J.F.Shamra</td>
+            <td>HNDIT</td>
+            <td>2324</td>
+            <td>Year 1</td>
+            <td>SEMSTER 2</td>
+            <td>Registered</td>
+            <td>
+              <button>Delete</button>
+            </td>
+          </tr>
+          <tr style="font-size: small;">
+            <td>NAW-IT-2324-F-0005</td>
+            <td>M.F.F.Zumra</td>
+            <td>HNDIT</td>
+            <td>2324</td>
+            <td>Year 1</td>
+            <td>SEMSTER 2</td>
+            <td>Applied</td>
+            <td>
+              <button>Delete</button>
+            </td>
+          </tr>
+          <tr style="font-size: small;">
+            <td>NAW-IT-2324-F-0006</td>
+            <td>A.Amjadh</td>
+            <td>HNDIT</td>
+            <td>2324</td>
+            <td>Year 1</td>
+            <td>SEMSTER 2</td>
+            <td>Renewed</td>
+            <td>
+              <button>Delete</button>
+            </td>
+          </tr>
+          <tr style="font-size: small;">
+            <td>NAW-IT-2324-F-0007</td>
+            <td>M.N.Yaseen</td>
+            <td>HNDIT</td>
+            <td>2324</td>
+            <td>Year 1</td>
+            <td>SEMSTER 2</td>
+            <td>Renewed</td>
+            <td>
+              <button>Delete</button>
+            </td>
+          </tr>
+          <tr style="font-size: small;">
+            <td>NAW-IT-2324-F-0008</td>
+            <td>S.Manojprahanth</td>
+            <td>HNDIT</td>
+            <td>2324</td>
+            <td>Year 1</td>
+            <td>SEMSTER 2</td>
+            <td>Renewed</td>
+            <td>
+              <button>Delete</button>
+            </td>
+          </tr>
+          <tr style="font-size: small;">
+            <td>NAW-IT-2324-F-0009</td>
+            <td>S.U.Safra</td>
+            <td>HNDIT</td>
+            <td>2324</td>
+            <td>Year 1</td>
+            <td>SEMSTER 2</td>
+            <td>Applied</td>
+            <td>
+              <button>Delete</button>
+            </td>
+          </tr>
+          <tr style="font-size: small;">
+            <td>NAW-IT-2324-F-0010</td>
+            <td>M.I.Shahna</td>
+            <td>HNDIT</td>
+            <td>2324</td>
+            <td>Year 1</td>
+            <td>SEMSTER 2</td>
+            <td>Registered</td>
+            <td>
+              <button>Delete</button>
+            </td>
+          </tr>
+          <tr style="font-size: small;">
+            <td>NAW-IT-2324-F-0011</td>
+            <td>J.M.O.S.Jayasekara</td>
+            <td>HNDIT</td>
+            <td>2324</td>
+            <td>Year 1</td>
+            <td>SEMSTER 2</td>
+            <td>Registered</td>
+            <td>
+              <button>Delete</button>
+            </td>
+          </tr>
+          <tr style="font-size: small;">
+            <td>NAW-IT-2324-F-0012</td>
+            <td>A.Iqbal</td>
+            <td>HNDIT</td>
+            <td>2324</td>
+            <td>Year 1</td>
+            <td>SEMSTER 2</td>
+            <td>Registered</td>
+            <td>
+              <button>Delete</button>
+            </td>
+          </tr>
+        </thead>
+        <tbody id="studentTableBody"></tbody>
+      </table>
+    </div>
+
+<!--EXAM SECTION-->    
+    <div id="exam-requests" class="section">
+      <h2>📝 Exam Requests</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Registration Number</th>
+            <th>Student Name</th>
+            <th>Course</th>
+            <th>Year</th>
+            <th>Semester</th>
+            <th>Subjects & Remaining Attempts</th>
+            <th>Actions</th>
+          </tr>
+          <tr style="font-size: small;">
+            <td>NAW-IT-2324-F-0001</td>
+            <td>G.T.D.Thorawalage</td>
+            <td>HNDIT</td>
+            <td>2324</td>
+            <td>SEMSTER 2</td>
+            <td>
+              Object Oriented Programming (4)<br>
+              Web Progrmming (4)<br>
+              Data Structures and Algorithms (4)<br>
+              Database Managment Systems (4)<br>
+              Operating Systems (4) <br>
+              Information and Computer Security(4)<br>
+              Statics for IT (4)
+            </td>
+            <td>
+              <button onclick="approve()">Approve</button>
+              <button onclick="decline()">Decline</button>
+            </td>
+          </tr>
+          <tr style="font-size: small;">
+            <td>NAW-IT-2324-F-0002</td>
+            <td>K.H.K.S.A.Kariyawasam</td>
+            <td>HNDIT</td>
+            <td>2324</td>
+            <td>SEMSTER 2</td>
+            <td>
+              Object Oriented Programming (4)<br>
+              Web Progrmming (4)<br>
+              Data Structures and Algorithms (4)<br>
+              Database Managment Systems (4)<br>
+              Operating Systems (4) <br>
+              Information and Computer Security(4)<br>
+              Statics for IT (4)
+            </td>
+            <td>
+              <button onclick="approve()">Approve</button>
+              <button onclick="decline()">Decline</button>
+            </td>
+          </tr>
+          <tr style="font-size: small;">
+            <td>NAW-IT-2324-F-0003</td>
+            <td>H.M.D.C.Bandara</td>
+            <td>HNDIT</td>
+            <td>2324</td>
+            <td>SEMSTER 2</td>
+           <td>
+              Object Oriented Programming (4)<br>
+              Web Progrmming (4)<br>
+              Data Structures and Algorithms (4)<br>
+              Database Managment Systems (4)<br>
+              Operating Systems (4) <br>
+              Information and Computer Security(4)<br>
+              Statics for IT (4)
+            </td>
+            <td>
+              <button onclick="approve()">Approve</button>
+              <button onclick="decline()">Decline</button>
+            </td>
+          </tr>
+          <tr style="font-size: small;">
+            <td>NAW-IT-2324-F-0004</td>
+            <td>M.J.F.Shamra</td>
+            <td>HNDIT</td>
+            <td>2324</td>
+            <td>SEMSTER 2</td>
+            <td>
+              Object Oriented Programming (4)<br>
+              Web Progrmming (4)<br>
+              Data Structures and Algorithms (4)<br>
+              Database Managment Systems (4)<br>
+              Operating Systems (4) <br>
+              Information and Computer Security(4)<br>
+              Statics for IT (4)
+            </td>
+            <td>
+              <button onclick="approve()">Approve</button>
+              <button onclick="decline()">Decline</button>
+            </td>
+          </tr>
+          <tr style="font-size: small;">
+            <td>NAW-IT-2324-F-0005</td>
+            <td>M.F.F.Zumra</td>
+            <td>HNDIT</td>
+            <td>2324</td>
+            <td>SEMSTER 2</td>
+            <td>
+              Object Oriented Programming (4)<br>
+              Web Progrmming (4)<br>
+              Data Structures and Algorithms (4)<br>
+              Database Managment Systems (4)<br>
+              Operating Systems (4) <br>
+              Information and Computer Security(4)<br>
+              Statics for IT (4)
+            </td>
+            <td>
+              <button onclick="approve()">Approve</button>
+              <button onclick="decline()">Decline</button>
+            </td>
+          </tr>
+          <tr style="font-size: small;">
+            <td>NAW-IT-2324-F-0006</td>
+            <td>A.Amjadh</td>
+            <td>HNDIT</td>
+            <td>2324</td>
+            <td>SEMSTER 2</td>
+            <td>
+              Object Oriented Programming (4)<br>
+              Web Progrmming (4)<br>
+              Data Structures and Algorithms (4)<br>
+              Database Managment Systems (4)<br>
+              Operating Systems (4) <br>
+              Information and Computer Security(4)<br>
+              Statics for IT (4)
+            </td>
+            <td>
+              <button onclick="approve()">Approve</button>
+              <button onclick="decline()">Decline</button>
+            </td>
+          </tr>
+          <tr style="font-size: small;">
+            <td>NAW-IT-2324-F-0007</td>
+            <td>M.N.Yaseen</td>
+            <td>HNDIT</td>
+            <td>2324</td>
+            <td>SEMSTER 2</td>
+            <td>
+              Object Oriented Programming (4)<br>
+              Web Progrmming (4)<br>
+              Data Structures and Algorithms (4)<br>
+              Database Managment Systems (4)<br>
+              Operating Systems (4) <br>
+              Information and Computer Security(4)<br>
+              Statics for IT (4)
+            </td>
+            <td>
+              <button onclick="approve()">Approve</button>
+              <button onclick="decline()">Decline</button>
+            </td>
+          </tr>
+          
+        </thead>
+        <tbody style="font-size: small;" id="examRequestTableBody"></tbody>
+      </table>
+    </div>
+
+<!--MEDICAL SECTION-->    
+    <div id="medical-requests" class="section">
+      <h2>🏥 Medical Requests</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Registration Number</th>
+            <th>Student Name</th>
+            <th>Course</th>
+            <th>Subject</th>
+            <th>Exam Date</th>
+            <th>Medical Type</th>
+            <th>Issue Date</th>
+            <th>Actions</th>
+          </tr>
+          <tr style="font-size: small;">
+            <td>NAW-IT-2324-F-0237</td>
+            <td>Harisuthan</td>
+            <td>HNDIT</td>
+            <td>Fundamental of Programming</td>
+            <td>05/07/2025</td>94tuj9grhju9ghhg99fj
+            <td>Goverment</td>
+            <td>04/07/2025</td>
+            <td>
+              <button onclick="approve()">Approve</button>
+              <button onclick="decline()">Decline</button>
+            </td>
+          </tr>
+          <tr style="font-size: small;">
+            <td>NAW-IT-2324-F-0007</td>
+            <td>Yaseen</td>
+            <td>HNDIT</td>
+            <td>Data Communicatrion</td>
+            <td>08/07/2025</td>
+            <td>Goverment</td>
+            <td>06/07/2025</td>
+            <td>
+              <button onclick="approve()">Approve</button>
+              <button onclick="decline()">Decline</button>
+            </td>
+          </tr>
+          <tr style="font-size: small;">
+            <td>NAW-MNG-2324-F-0037</td>
+            <td>PASINDU</td>
+            <td>HNDMNG</td>
+            <td>Law</td>
+            <td>12/07/2025</td>
+            <td>Goverment</td>
+            <td>10/07/2025</td>
+            <td>
+              <button onclick="approve()">Approve</button>
+              <button onclick="decline()">Decline</button>
+            </td>
+          </tr>
+          <tr style="font-size: small;">
+            <td>NAW-EN-2324-F-0237</td>
+            <td>Abdullah</td>
+            <td>HNDEN</td>
+            <td>Speaking</td>
+            <td>25/07/2025</td>
+            <td>Goverment</td>
+            <td>22/07/2025</td>
+            <td>
+              <button onclick="approve()">Approve</button>
+              <button onclick="decline()">Decline</button>
+            </td>
+          </tr>
+        </thead>
+        <tbody style="font-size:small;" id="medicalRequestTableBody"></tbody>
+      </table>
+    </div>
+
+<!--RESULT UPLOAD SECTION-->    
+    <div id="results" class="section">
+      <h2>📊 Results</h2>
+      <input type="file" id="resultFile" accept=".pdf,.xlsx,.xls">
+      <button onclick="uploadResults()">Upload</button>
+    </div>
+
+<!--ACCOUNT SECTION-->    
+    <div id="settings" class="section">
+      <h1>⚙️ Account</h1>
+      <div class="setting-item">
+        <label>Username:</label>
+        <input type="text" id="username">
+        <button onclick="saveUsername()">Save</button>
+      </div>
+      <div class="setting-item">
+        <label>Password:</label>
+        <input type="password" id="password">
+        <button onclick="savePassword()">Save</button>
+      </div>
+      <div class="setting-item">
+        <label>Deactivate Account:</label>
+        <button onclick="deactivateAccount()">Deactivate</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

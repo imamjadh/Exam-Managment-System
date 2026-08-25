@@ -1,0 +1,229 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Exam Management System - ATI Nawalapitiya</title>
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+<style>
+body {
+    background-color: #121212;
+    color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    font-family: Poppins, sans-serif;
+}
+
+/* Header */
+.header {
+    width: 97%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(10, 25, 47, 0.3); 
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s ease;
+}
+
+.header:hover {
+    transform: translateY(-2px);
+    background: rgba(10, 25, 47, 0.4);
+}
+
+.logo img {
+    width: 80px;
+    height: 100px;
+}
+
+.logoati img {
+    width: 80px;
+    height: 100px;
+    border-radius: 45px;
+    border: 2px solid rgba(255, 255, 255, 0.3); 
+}
+
+/* Navbar */
+.navbar {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 2rem;
+    background: rgba(44, 54, 64, 0.3); 
+    backdrop-filter: blur(10px);
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: background 0.3s ease;
+}
+
+.navbar:hover {
+    background: rgba(44, 54, 64, 0.4);
+}
+
+.navbar a {
+    color: #FFFFFF; 
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: bold;
+    transition: transform 0.3s ease;
+}
+
+.navbar a:hover {
+    color: #FFFFFF; 
+    transform: scale(1.05);
+}
+
+/* Main content */
+.content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 200px;
+    padding-top: 200px;
+    margin-left: 50px;
+    margin-right: 50px;
+    background: rgba(44, 54, 64, 0.3); 
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 2rem;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), background 0.4s ease;
+}
+
+.content:hover {
+    transform: translateY(-5px);
+    background: rgba(44, 54, 64, 0.4);
+}
+
+.section.active {
+    flex: 1;
+    text-align: left;
+}
+
+.title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: #FFFFFF; 
+    opacity: 0;
+    animation: fadeIn 0.5s ease forwards;
+}
+
+.subtitle {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: #FFFFFF;
+    opacity: 0;
+    animation: fadeIn 0.5s ease 0.2s forwards;
+}
+
+.divider {
+    border-top: 2px solid rgba(255, 255, 255, 0.3);
+    width: 50%;
+    margin: 1rem 0;
+}
+
+.description {
+    font-size: 1.25rem;
+    color: #E0E0E0; 
+    opacity: 0;
+    animation: fadeIn 0.5s ease 0.3s forwards;
+}
+
+.image {
+    flex: 1;
+    text-align: right;
+}
+
+.image img {
+    width: 900px;
+    max-width: 100%;
+    border-radius: 0.5rem;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.image img:hover {
+    transform: scale(1.02) rotate(1deg);
+}
+.footer {
+    background: rgba(44, 54, 64, 0.3); 
+    backdrop-filter: blur(10px);
+    color: #E0E0E0; 
+    width: 100%;
+    margin-top: 60px;
+    text-align: center;
+    padding: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s ease;
+}
+
+.footer:hover {
+    transform: scale(1.01);
+    background: rgba(44, 54, 64, 0.4);
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+</style>
+</head>
+
+<body>
+    <div>
+        <div class="header">
+        <!-- Sliate logo -->
+            <div class="logo">
+                <img src="PHOTOS/sliate.jpg" alt="Logo">
+            </div>
+        <!-- Navbar -->
+            <div class="navbar">
+                <a href="aboutus.html">About Us</a>
+                <a href="contectus.html">Contact Us</a>
+                <!-- Signin-->
+                <div class="signin">
+                    <a href="signin.html"><u>Sign In</u></a>
+                </div>
+            </div>
+        <!--Ati logo-->
+            <div class="logoati">
+                <img src="PHOTOS/LOGO.png" alt="Logo">
+            </div>
+        </div>
+
+<!--content-->
+        <div class="content">
+            <div class="section active">
+                <div class="title">Exam</div>
+                <div class="subtitle">Management</div>
+                <div class="title">System</div>
+                <div class="divider"></div>
+                <div class="description">Advanced Technological Institute Nawalapitiya</div>
+            </div>
+        <!--Image-->
+            <div class="image">
+                <a href="aboutus.html"> <img src="PHOTOS/ati.jpg" alt="ATI Nawalapitiya"></a>
+            </div>
+        </div>
+    </div>
+
+<!--footer-->
+        <footer class="footer" >
+            <div>
+                <h4>Copyright © 2025 - ATI Nawalapitiya ALL RIGHT RESERVED.</h4>
+            </div>
+        </footer>
+    
+</body>
+</html>
