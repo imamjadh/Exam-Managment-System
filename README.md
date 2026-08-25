@@ -75,9 +75,6 @@ Administrators can:
 - **HTML5** — Structure and content
 - **CSS3** — Styling and responsive design
 - **JavaScript** — Application functionality and interactions
-- **SVG** — Icons and graphical elements
-- **Image Assets** — Logos and visual content
-- **Responsive Web Design** — Desktop and mobile compatibility
 
 ---
 
